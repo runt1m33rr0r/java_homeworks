@@ -2,7 +2,7 @@ package com.homework5;
 
 import java.util.ArrayList;
 
-class Item implements IShipment {
+abstract class Item implements IShipment {
 
     private String address;
     private double deliveryPrice;
