@@ -5,9 +5,11 @@ import java.util.ArrayList;
 class CourierCompany {
 
     private ArrayList<Item> items;
+    private int itemsCount;
 
-    CourierCompany(ArrayList<Item> items) {
-        this.items = items;
+    CourierCompany(int itemsCount) {
+        this.items = new ArrayList<>();
+        this.itemsCount = itemsCount;
     }
 
     ArrayList<Item> getItems() {
@@ -36,5 +38,6 @@ class CourierCompany {
 
     void addItem(Item item) {
         this.items.add(item);
+        this.itemsCount++;
     }
 }
