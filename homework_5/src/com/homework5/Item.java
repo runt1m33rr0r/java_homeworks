@@ -1,9 +1,8 @@
 package com.homework5;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-abstract class Item implements IShipment {
+public abstract class Item implements IShipment {
 
     private String address;
     private double deliveryPrice;
@@ -11,20 +10,20 @@ abstract class Item implements IShipment {
     private int elementsCount;
     private Box box;
 
-    Item(String address, double deliveryPrice, int elementsCount, Box box) {
+    public Item(String address, double deliveryPrice, ArrayList<Element> elements, Box box) {
         this.address = address;
         this.deliveryPrice = deliveryPrice;
-        this.elementsCount = elementsCount;
         this.box = box;
-        this.elements = new ArrayList<>();
+        this.elements = elements;
+        this.elementsCount = this.elements.size();
     }
 
-    void addElement(Element newElement) {
+    public void addElement(Element newElement) {
         this.elements.add(newElement);
         this.elementsCount += 1;
     }
 
-    double getWeight() {
+    public double getWeight() {
         double result = 0;
 
         for (Element el : this.elements) {
@@ -34,7 +33,7 @@ abstract class Item implements IShipment {
         return result;
     }
 
-    int getElementsCount() {
+    public int getElementsCount() {
         return this.elementsCount;
     }
 
@@ -42,24 +41,29 @@ abstract class Item implements IShipment {
         return this.deliveryPrice * this.getWeight();
     }
 
-    ArrayList<Element> getElements() {
+    public double getDeliveryPricePerKg() {
+        return this.deliveryPrice;
+    }
+
+    public ArrayList<Element> getElements() {
         return this.elements;
     }
 
-    String getAddress() {
+    public String getAddress() {
         return this.address;
     }
 
-    Box getBox() {
+    public Box getBox() {
         return this.box;
     }
 
     @Override
     public String toString() {
         return "address: " + this.getAddress() +
-                "\ndelivery price: " + this.deliveryPrice +
+                "\ndelivery price per kg: " + this.getDeliveryPricePerKg() +
+                "\nshipping price: " + this.shippingPrice() +
                 "\nelements count: " + this.getElementsCount() +
-                "\nelements: " + this.getElements().toString() +
-                "\nbox: " + this.getBox().toString();
+                "\n" + this.getElements().toString() +
+                "\n" + this.getBox().toString();
     }
 }

@@ -1,24 +1,30 @@
 package com.homework5;
 
-class Element {
+public class Element {
 
     private Material material;
     private double weight;
 
-    Element(double weight, Material material) {
+    public Element(double weight, Material material) {
         this.material = material;
         this.weight = weight;
     }
 
-    boolean isBreakable() {
+    public boolean isBreakable() {
         return this.material.getBreakable();
     }
 
-    double getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
-    Material getMaterial() {
+    public Material getMaterial() {
         return this.material;
+    }
+
+    @Override
+    public String toString() {
+        return "\n---element---\nweight: " + this.getWeight() + "\n" + this.getMaterial().toString() +
+                "\n---element---";
     }
 }

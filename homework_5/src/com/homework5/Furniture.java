@@ -1,20 +1,22 @@
 package com.homework5;
 
-class Furniture extends Item {
+import java.util.ArrayList;
+
+public class Furniture extends Item {
 
     private String brand;
 
-    Furniture(String brand, String address, double deliveryPrice, int elementsCount, Box box) {
-        super(address, deliveryPrice, elementsCount, box);
+    public Furniture(String brand, String address, double deliveryPrice, ArrayList<Element> elements, Box box) {
+        super(address, deliveryPrice, elements, box);
 
         this.brand = brand;
     }
 
-    String getBrand() {
+    public String getBrand() {
         return this.brand;
     }
 
-    boolean isBreakable() {
+    public boolean isBreakable() {
         for (Element el : this.getElements()) {
             if (el.isBreakable()) {
                 return true;
@@ -31,5 +33,12 @@ class Furniture extends Item {
         }
 
         return super.shippingPrice();
+    }
+
+    @Override
+    public String toString() {
+        return "\n---furniture---\n" + super.toString() +
+                "\nbrand: " + this.getBrand() +
+                "\n---furniture---";
     }
 }

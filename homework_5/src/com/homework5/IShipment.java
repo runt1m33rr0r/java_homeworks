@@ -1,5 +1,5 @@
 package com.homework5;
 
-interface IShipment {
+public interface IShipment {
     double shippingPrice();
 }

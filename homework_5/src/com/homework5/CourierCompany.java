@@ -2,21 +2,25 @@ package com.homework5;
 
 import java.util.ArrayList;
 
-class CourierCompany {
+public class CourierCompany {
 
     private ArrayList<Item> items;
     private int itemsCount;
 
-    CourierCompany(int itemsCount) {
-        this.items = new ArrayList<>();
-        this.itemsCount = itemsCount;
+    public CourierCompany(ArrayList<Item> items) {
+        this.items = items;
+        this.itemsCount = this.items.size();
     }
 
-    ArrayList<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return this.items;
     }
 
-    double getIncome() {
+    public int getItemsCount() {
+        return this.itemsCount;
+    }
+
+    public double getIncome() {
         double result = 0;
 
         for (Item item : this.items) {
@@ -26,7 +30,7 @@ class CourierCompany {
         return result;
     }
 
-    double getItemsVolume() {
+    public double getItemsVolume() {
         double result = 0;
 
         for (Item item : this.items) {
@@ -36,8 +40,17 @@ class CourierCompany {
         return result;
     }
 
-    void addItem(Item item) {
+    public void addItem(Item item) {
         this.items.add(item);
         this.itemsCount++;
+    }
+
+    @Override
+    public String toString() {
+        return "\n---courier company---\nitems count: " + this.getItemsCount() +
+                "\nitems: \n" + this.getItems().toString() +
+                "\nincome: " + this.getIncome() +
+                "\nitems volume: " + this.getItemsVolume() +
+                "\n---courier company---";
     }
 }
