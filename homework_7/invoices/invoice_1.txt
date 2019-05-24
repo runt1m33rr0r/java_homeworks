@@ -1,0 +1,7 @@
+invoice number: 1
+provider: Water shop
+buyer: Customer
+date: Thu May 23 00:17:59 EEST 2019
+number of sold bottles: 5
+price per item: 1.0
+purchase price: 5.0

@@ -1,0 +1,9 @@
+Printing house: Printing house 1
+ - income: 893.75
+ - costs: 2715.0
+ - printed issues count: 3
+ - printed issues list:
+   * Issue1, 30 pages long with A5 size.
+   * Issue2, 50 pages long with A4 size.
+   * Issue3, 5 pages long with A5 size.
+
