@@ -15,6 +15,10 @@ public class Employee implements Serializable {
         return this.salary;
     }
 
+    public void setSalary(double newSalary) {
+        this.salary = newSalary;
+    }
+
     public String getName() {
         return this.name;
     }

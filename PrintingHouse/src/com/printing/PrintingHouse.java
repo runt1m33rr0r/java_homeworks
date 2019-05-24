@@ -14,7 +14,7 @@ public class PrintingHouse implements Serializable {
     private double salaryBonusThreshold;
     private double salaryBonusPercent;
     private double issueOverchargePercent;
-    private double income;
+    private double salesIncome;
     private double printCosts;
     private int minIssuesForDiscount;
     private double discountPercent;
@@ -37,7 +37,7 @@ public class PrintingHouse implements Serializable {
         this.printedIssues = new ArrayList<>();
         this.managers = new ArrayList<>();
         this.operators = new ArrayList<>();
-        this.income = 0;
+        this.salesIncome = 0;
         this.printCosts = 0;
         this.firstMachine = new PrintingMachine("Machine1", 10, 5, 5);
         this.secondMachine = new PrintingMachine("Machine2", 20, 10, 5);
@@ -47,8 +47,29 @@ public class PrintingHouse implements Serializable {
         return this.name;
     }
 
-    public double getIncome() {
-        return this.income;
+    private void addIncome(double amount) {
+        this.salesIncome += amount;
+        this.updateSalaries();
+    }
+
+    private void addCosts(double amount) {
+        this.printCosts += amount;
+        this.updateSalaries();
+    }
+
+    private double calculateManagerSalary() {
+        double salary = this.baseEmployeeSalary;
+        if (this.calculateIncome() > this.salaryBonusThreshold) {
+            salary += this.salaryBonusPercent * this.baseEmployeeSalary / 100.0;
+        }
+
+        return salary;
+    }
+
+    private void updateSalaries() {
+        for (Employee manager : this.managers) {
+            manager.setSalary(this.calculateManagerSalary());
+        }
     }
 
     private double calculateIssuePaperCost(Issue issue, PaperType paperType) {
@@ -88,11 +109,7 @@ public class PrintingHouse implements Serializable {
     }
 
     public void hireManager(String name) {
-        double salary = this.baseEmployeeSalary;
-        if (this.income > this.salaryBonusThreshold) {
-            salary += this.salaryBonusPercent * this.baseEmployeeSalary / 100.0;
-        }
-
+        double salary = this.calculateManagerSalary();
         this.managers.add(new Employee(name, salary));
     }
 
@@ -113,6 +130,10 @@ public class PrintingHouse implements Serializable {
         return salaryCosts + this.printCosts;
     }
 
+    public double calculateIncome() {
+        return this.salesIncome - this.calculateCosts();
+    }
+
     public void printIssues(Client client, ArrayList<Issue> issues, PaperType paperType, InkType inkType) {
         double issuesPrintPrice = 0;
         double issuesPrintCost = 0;
@@ -131,8 +152,8 @@ public class PrintingHouse implements Serializable {
             return;
         }
 
-        this.income += moneyTaken;
-        this.printCosts += issuesPrintCost;
+        this.addIncome(moneyTaken);
+        this.addCosts(issuesPrintCost);
 
         if (issues.size() >= 2) {
             for (int i = 0; i < issues.size() - 1; i += 2) {
@@ -174,7 +195,7 @@ public class PrintingHouse implements Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Printing house: ").append(this.getName()).append("\n");
-        builder.append(" - income: ").append(this.getIncome()).append("\n");
+        builder.append(" - income: ").append(this.calculateIncome()).append("\n");
         builder.append(" - costs: ").append(this.calculateCosts()).append("\n");
         builder.append(" - printed issues count: ").append(this.printedIssues.size()).append("\n");
         builder.append(" - printed issues list:\n");

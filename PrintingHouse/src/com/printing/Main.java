@@ -6,10 +6,10 @@ public class Main {
     public static void main(String[] args) {
         PrintingHouse printingHouse = new PrintingHouse(
                 "Printing house 1",
-                1000,
-                2000,
                 10,
-                30,
+                20,
+                10,
+                600,
                 3,
                 5);
 
@@ -23,7 +23,7 @@ public class Main {
         issuesToPrint.add(new Issue("Issue2", 50, PageSize.A4));
         issuesToPrint.add(new Issue("Issue3", 5, PageSize.A5));
 
-        printingHouse.printIssues(client1, issuesToPrint, PaperType.GLOSSY, InkType.COLOR);
+        printingHouse.printIssues(client1, issuesToPrint, PaperType.GLOSSY, InkType.BLACK);
 
         String dataFilePath = "./printing_house.txt";
         FileManager.saveStringToFile(printingHouse.toString(), dataFilePath);
