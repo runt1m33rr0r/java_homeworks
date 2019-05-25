@@ -135,6 +135,10 @@ public class PrintingHouse implements Serializable {
     }
 
     public void printIssues(Client client, ArrayList<Issue> issues, PaperType paperType, InkType inkType) {
+        if (issues.size() == 0) {
+            return;
+        }
+
         double issuesPrintPrice = 0;
         double issuesPrintCost = 0;
         for (Issue issue : issues) {
